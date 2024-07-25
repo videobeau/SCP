@@ -5,6 +5,7 @@ using System.IO;
 class Program
 {
     const int ALPHA_CLIP = 128; // below this alpha value is transparent
+    const string OUTPUT_DIRECTORY = "output";
 
     static int Main(string[] args)
     {
@@ -38,7 +39,7 @@ class Program
         }
 
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Output to " + folderPath + "\\SCP\\");
+        Console.WriteLine("Output to " + new FileInfo(folderPath).Directory.FullName + "\\" + OUTPUT_DIRECTORY + "\\");
         Console.ResetColor();
         return 0;
     }
@@ -83,8 +84,8 @@ class Program
         memoryStream.Dispose();
 
         //Console.WriteLine(BitConverter.ToString(buffer));
-
-        var outputDirectory = new FileInfo(filepath).Directory.FullName + "\\SCP\\";
+        var outputDirectory = new FileInfo(new FileInfo(filepath).Directory.FullName).Directory.FullName + "\\" + OUTPUT_DIRECTORY + "\\";
+        File.Delete(outputDirectory);
         Directory.CreateDirectory(outputDirectory);
         File.WriteAllBytes(outputDirectory + Path.GetFileNameWithoutExtension(new FileInfo(filepath).Name) + ".scp", buffer);
 
