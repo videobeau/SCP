@@ -60,7 +60,6 @@ class Program
                 if (bitmap.GetPixel(x, y).A < ALPHA_CLIP)
                 {
                     singleChannelValues[byteIndex] = 0;
-                    continue;
                 }
                 else
                 {
